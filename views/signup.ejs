@@ -1,0 +1,35 @@
+<%- include("./partials/head.ejs") %>
+<h1 class="text-center">Sign Up</h1>
+<div class="container">
+    <form action="/user/signup" method="POST">
+        <div class="mb-3">
+            <label class="form-label">Full Name</label
+            >
+            <input
+                type="text"
+                class="form-control"
+                name="fullName"
+            />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email address</label
+            >
+            <input
+                type="email"
+                class="form-control"
+                name="email"
+            />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label
+            >
+            <input
+                type="password"
+                name="password"
+                class="form-control"
+            />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<%- include("./partials/scripts.ejs") %>
