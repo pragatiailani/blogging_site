@@ -3,7 +3,7 @@
     data-bs-theme="dark"
 >
     <div class="container-fluid">
-        <a class="navbar-brand text-light" href="#">PunnyPages</a>
+        <a class="navbar-brand text-light" href="/">PunnyPages</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -21,29 +21,40 @@
                     <a
                         class="nav-link active text-light"
                         aria-current="page"
-                        href="#"
+                        href="/"
                         >Home</a
                     >
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Add blog</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a
-                        class="text-light nav-link dropdown-toggle"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        Pragati Aliani
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a class="dropdown-item" href="#">Logout</a>
+                <% if (locals.user) { %>
+                    <% // if (locals.user.role === "WRITER") { %>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/blog/add-new">Add blog</a>
                         </li>
-                    </ul>
-                </li>
+                    <% // } %>
+                    <li class="nav-item dropdown">
+                        <a
+                            class="text-light nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                        <%-locals.user.fullName%>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="/user/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                <% } else{ %>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="/user/signup">Create Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="/user/signin">Sign In</a>
+                    </li>
+                <% } %>
             </ul>
             <!-- <form class="d-flex" role="search">
                 <input

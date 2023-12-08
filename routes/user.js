@@ -9,9 +9,12 @@ router.get("/signin", (req, res) => {
 
 router.post("/signin", async (req, res) => {
     const { email, password } = req.body;
-    // const isMatched = User.matchPassword(email, password);
-    const response = await User.matchPassword(email, password);
-    return res.redirect("/")
+    try {
+        const token = await User.matchPasswordAndGenerateToken(email, password);
+        return res.cookie("token", token).redirect("/");
+    } catch (error) {
+        res.render("signin", { error: "Incorrect credentials" });
+    }
 });
 
 router.get("/signup", (req, res) => {
@@ -21,7 +24,12 @@ router.get("/signup", (req, res) => {
 router.post("/signup", async (req, res) => {
     const { fullName, email, password } = req.body;
     await User.create({ fullName, email, password });
-    return res.redirect("/")
+    return res.redirect("/");
+});
+
+router.get("/logout", async (req, res) => { 
+    res.clearCookie("token");
+    return res.redirect("/");
 });
 
 module.exports = router;
