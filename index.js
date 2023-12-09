@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 
 const userRoutes = require("./routes/user");
 const blogRoutes = require("./routes/blog");
+const commentRoutes = require("./routes/comment");
 
 const Blog = require("./models/blog");
 
@@ -34,6 +35,7 @@ app.get("/", async (req, res) => {
 
 app.use("/user", userRoutes);
 app.use("/blog", blogRoutes);
+app.use("/comment", commentRoutes);
 
 const PORT = 8080;
 app.listen(PORT, () => console.log(`SERVER ON ${PORT}`));

@@ -4,6 +4,7 @@ const path = require("path");
 const fs = require("fs");
 
 const Blog = require("../models/blog");
+const Comment = require("../models/comments");
 
 const router = Router();
 
@@ -44,9 +45,15 @@ router.post(
             coverImageURL: `/uploads/${req.user.id}/${req.file.filename}`,
             createdBy: req.user.id,
         });
-        return res.redirect("/");
-        // return res.redirect(`/blog/${blog._id}`);
+        // return res.redirect("/");
+        return res.redirect(`/blog/${blog._id}`);
     }
 );
+
+router.get("/:id", async (req, res) => {
+    const blog = await Blog.findById(req.params.id).populate("createdBy");
+    const comments = await Comment.find({ blogId: req.params.id }).populate("createdBy");
+    return res.render("blog", { user: req.user, blog, comments });
+});
 
 module.exports = router;
